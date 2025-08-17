@@ -1,4 +1,4 @@
-# task-manager-frontend
+# Task-Manager-Frontend
 A simple web-based Task Manager application that allows users to create, view, edit, and delete tasks. Includes user authentication and task status management.
 
 
