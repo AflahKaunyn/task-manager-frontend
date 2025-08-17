@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import TaskList from './components/TaskList';
@@ -16,30 +16,39 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <h1>Task Manager</h1>
-        <button onClick={handleLogout}>Logout</button>
-        <Routes>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
-          <Route
-            path="/tasks"
-            element={
-              <PrivateRoute>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
+        
+        <Route
+          path="/tasks"
+          element={
+            <PrivateRoute>
+              <div>
+                <h1>Task Manager</h1>
+                <button onClick={handleLogout}>Logout</button>
                 <TaskList />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/protected"
-            element={
-              <PrivateRoute>
+              </div>
+            </PrivateRoute>
+          }
+        />
+        
+        <Route
+          path="/protected"
+          element={
+            <PrivateRoute>
+              <div>
+                <h1>Task Manager</h1>
+                <button onClick={handleLogout}>Logout</button>
                 <ProtectedPage />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </div>
+              </div>
+            </PrivateRoute>
+          }
+        />
+
+        {/* Redirect root path based on login */}
+        <Route path="/" element={loggedIn ? <Navigate to="/tasks" /> : <Navigate to="/login" />} />
+      </Routes>
     </Router>
   );
 }
