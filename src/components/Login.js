@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api';
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -12,6 +14,7 @@ function Login({ onLogin }) {
       localStorage.setItem('token', res.data.token);
       setMessage(res.data.message);
       onLogin();
+      navigate('/tasks'); // Redirect to TaskList after login
     } catch (err) {
       setMessage(err.response?.data?.message || 'Login failed');
     }
