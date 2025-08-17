@@ -20,7 +20,19 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login onLogin={() => setLoggedIn(true)} />} />
         
-
+        <Route
+          path="/tasks"
+          element={
+            <PrivateRoute>
+              <div>
+                <h1>Task Manager</h1>
+                <button onClick={handleLogout}>Logout</button>
+                <TaskList />
+              </div>
+            </PrivateRoute>
+          }
+        />
+        
         <Route
           path="/protected"
           element={
