@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api';
+import { signupUser } from '../api/auth'; // import your function
 
 function Signup() {
   const [name, setName] = useState('');
@@ -9,8 +9,8 @@ function Signup() {
 
   const handleSignup = async () => {
     try {
-      const res = await api.post('/auth/signup', { name, email, password });
-      setMessage(res.data.message);
+      const res = await signupUser(name, email, password);
+      setMessage(res.message); // backend response
     } catch (err) {
       setMessage(err.response?.data?.message || 'Signup failed');
     }
